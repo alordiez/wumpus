@@ -24,6 +24,12 @@ public interface HunterService {
      * @return the list of entities
      */
     List<HunterDTO> findAll();
+    /**
+     * Get all the HunterDTO where Game is null.
+     *
+     * @return the list of entities
+     */
+    List<HunterDTO> findAllWhereGameIsNull();
 
 
     /**

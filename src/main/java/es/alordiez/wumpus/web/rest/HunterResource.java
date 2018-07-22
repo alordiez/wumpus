@@ -17,6 +17,7 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 /**
  * REST controller for managing Hunter.
@@ -80,11 +81,16 @@ public class HunterResource {
     /**
      * GET  /hunters : get all the hunters.
      *
+     * @param filter the filter of the request
      * @return the ResponseEntity with status 200 (OK) and the list of hunters in body
      */
     @GetMapping("/hunters")
     @Timed
-    public List<HunterDTO> getAllHunters() {
+    public List<HunterDTO> getAllHunters(@RequestParam(required = false) String filter) {
+        if ("game-is-null".equals(filter)) {
+            log.debug("REST request to get all Hunters where game is null");
+            return hunterService.findAllWhereGameIsNull();
+        }
         log.debug("REST request to get all Hunters");
         return hunterService.findAll();
     }

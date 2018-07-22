@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { JhiAlertService } from 'ng-jhipster';
 
 import { IHunter } from 'app/shared/model/hunter.model';
 import { HunterService } from './hunter.service';
+import { IGame } from 'app/shared/model/game.model';
+import { GameService } from 'app/entities/game';
 
 @Component({
     selector: 'jhi-hunter-update',
@@ -14,13 +17,26 @@ export class HunterUpdateComponent implements OnInit {
     private _hunter: IHunter;
     isSaving: boolean;
 
-    constructor(private hunterService: HunterService, private activatedRoute: ActivatedRoute) {}
+    games: IGame[];
+
+    constructor(
+        private jhiAlertService: JhiAlertService,
+        private hunterService: HunterService,
+        private gameService: GameService,
+        private activatedRoute: ActivatedRoute
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ hunter }) => {
             this.hunter = hunter;
         });
+        this.gameService.query().subscribe(
+            (res: HttpResponse<IGame[]>) => {
+                this.games = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     previousState() {
@@ -47,6 +63,14 @@ export class HunterUpdateComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
+    }
+
+    private onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    trackGameById(index: number, item: IGame) {
+        return item.id;
     }
     get hunter() {
         return this._hunter;

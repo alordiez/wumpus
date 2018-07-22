@@ -12,6 +12,8 @@ import org.mapstruct.*;
 public interface HunterMapper extends EntityMapper<HunterDTO, Hunter> {
 
 
+    @Mapping(target = "game", ignore = true)
+    Hunter toEntity(HunterDTO hunterDTO);
 
     default Hunter fromId(Long id) {
         if (id == null) {

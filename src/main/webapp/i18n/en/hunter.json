@@ -17,7 +17,8 @@
                 "title": "Hunter"
             },
             "position": "Position",
-            "isAlive": "Is Alive"
+            "isAlive": "Is Alive",
+            "game": "Game"
         }
     }
 }

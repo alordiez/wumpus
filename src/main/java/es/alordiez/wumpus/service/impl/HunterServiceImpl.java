@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 /**
  * Service Implementation for managing Hunter.
  */
@@ -61,6 +62,21 @@ public class HunterServiceImpl implements HunterService {
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
+
+
+    /**
+     *  get all the hunters where Game is null.
+     *  @return the list of entities
+     */
+    @Transactional(readOnly = true) 
+    public List<HunterDTO> findAllWhereGameIsNull() {
+        log.debug("Request to get all hunters where Game is null");
+        return StreamSupport
+            .stream(hunterRepository.findAll().spliterator(), false)
+            .filter(hunter -> hunter.getGame() == null)
+            .map(hunterMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
 
     /**
      * Get one hunter by id.

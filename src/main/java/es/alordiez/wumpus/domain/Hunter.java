@@ -1,5 +1,6 @@
 package es.alordiez.wumpus.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -27,6 +28,10 @@ public class Hunter implements Serializable {
     @NotNull
     @Column(name = "is_alive", nullable = false)
     private Boolean isAlive;
+
+    @OneToOne(mappedBy = "hunter")
+    @JsonIgnore
+    private Game game;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -61,6 +66,19 @@ public class Hunter implements Serializable {
 
     public void setIsAlive(Boolean isAlive) {
         this.isAlive = isAlive;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public Hunter game(Game game) {
+        this.game = game;
+        return this;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
