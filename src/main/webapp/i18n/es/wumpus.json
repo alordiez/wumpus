@@ -17,7 +17,8 @@
                 "title": "Wumpus"
             },
             "position": "Position",
-            "isAlive": "Is Alive"
+            "isAlive": "Is Alive",
+            "game": "Game"
         }
     }
 }

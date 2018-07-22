@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { JhiAlertService } from 'ng-jhipster';
 
 import { IWumpus } from 'app/shared/model/wumpus.model';
 import { WumpusService } from './wumpus.service';
+import { IGame } from 'app/shared/model/game.model';
+import { GameService } from 'app/entities/game';
 
 @Component({
     selector: 'jhi-wumpus-update',
@@ -14,13 +17,26 @@ export class WumpusUpdateComponent implements OnInit {
     private _wumpus: IWumpus;
     isSaving: boolean;
 
-    constructor(private wumpusService: WumpusService, private activatedRoute: ActivatedRoute) {}
+    games: IGame[];
+
+    constructor(
+        private jhiAlertService: JhiAlertService,
+        private wumpusService: WumpusService,
+        private gameService: GameService,
+        private activatedRoute: ActivatedRoute
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ wumpus }) => {
             this.wumpus = wumpus;
         });
+        this.gameService.query().subscribe(
+            (res: HttpResponse<IGame[]>) => {
+                this.games = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     previousState() {
@@ -47,6 +63,14 @@ export class WumpusUpdateComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
+    }
+
+    private onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    trackGameById(index: number, item: IGame) {
+        return item.id;
     }
     get wumpus() {
         return this._wumpus;

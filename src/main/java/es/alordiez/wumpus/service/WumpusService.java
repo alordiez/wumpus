@@ -24,6 +24,12 @@ public interface WumpusService {
      * @return the list of entities
      */
     List<WumpusDTO> findAll();
+    /**
+     * Get all the WumpusDTO where Game is null.
+     *
+     * @return the list of entities
+     */
+    List<WumpusDTO> findAllWhereGameIsNull();
 
 
     /**

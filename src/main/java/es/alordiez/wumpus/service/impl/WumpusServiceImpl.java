@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 /**
  * Service Implementation for managing Wumpus.
  */
@@ -61,6 +62,21 @@ public class WumpusServiceImpl implements WumpusService {
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
+
+
+    /**
+     *  get all the wumpuses where Game is null.
+     *  @return the list of entities
+     */
+    @Transactional(readOnly = true) 
+    public List<WumpusDTO> findAllWhereGameIsNull() {
+        log.debug("Request to get all wumpuses where Game is null");
+        return StreamSupport
+            .stream(wumpusRepository.findAll().spliterator(), false)
+            .filter(wumpus -> wumpus.getGame() == null)
+            .map(wumpusMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
 
     /**
      * Get one wumpus by id.

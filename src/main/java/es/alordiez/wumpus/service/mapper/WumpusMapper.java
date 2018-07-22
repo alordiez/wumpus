@@ -12,6 +12,8 @@ import org.mapstruct.*;
 public interface WumpusMapper extends EntityMapper<WumpusDTO, Wumpus> {
 
 
+    @Mapping(target = "game", ignore = true)
+    Wumpus toEntity(WumpusDTO wumpusDTO);
 
     default Wumpus fromId(Long id) {
         if (id == null) {

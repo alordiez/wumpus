@@ -17,6 +17,7 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 /**
  * REST controller for managing Wumpus.
@@ -80,11 +81,16 @@ public class WumpusResource {
     /**
      * GET  /wumpuses : get all the wumpuses.
      *
+     * @param filter the filter of the request
      * @return the ResponseEntity with status 200 (OK) and the list of wumpuses in body
      */
     @GetMapping("/wumpuses")
     @Timed
-    public List<WumpusDTO> getAllWumpuses() {
+    public List<WumpusDTO> getAllWumpuses(@RequestParam(required = false) String filter) {
+        if ("game-is-null".equals(filter)) {
+            log.debug("REST request to get all Wumpuss where game is null");
+            return wumpusService.findAllWhereGameIsNull();
+        }
         log.debug("REST request to get all Wumpuses");
         return wumpusService.findAll();
     }
