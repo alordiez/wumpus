@@ -8,6 +8,7 @@
             "entities": {
                 "main": "Entidades",
                 "wumpus": "Wumpus",
+                "hunter": "Hunter",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
