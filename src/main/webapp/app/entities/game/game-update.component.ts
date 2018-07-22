@@ -6,10 +6,10 @@ import { JhiAlertService } from 'ng-jhipster';
 
 import { IGame } from 'app/shared/model/game.model';
 import { GameService } from './game.service';
-import { IPlayer } from 'app/shared/model/player.model';
-import { PlayerService } from 'app/entities/player';
 import { IWumpus } from 'app/shared/model/wumpus.model';
 import { WumpusService } from 'app/entities/wumpus';
+import { IHunter } from 'app/shared/model/hunter.model';
+import { HunterService } from 'app/entities/hunter';
 
 @Component({
     selector: 'jhi-game-update',
@@ -19,15 +19,15 @@ export class GameUpdateComponent implements OnInit {
     private _game: IGame;
     isSaving: boolean;
 
-    players: IPlayer[];
-
     wumpuses: IWumpus[];
+
+    hunters: IHunter[];
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private gameService: GameService,
-        private playerService: PlayerService,
         private wumpusService: WumpusService,
+        private hunterService: HunterService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -36,21 +36,6 @@ export class GameUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ game }) => {
             this.game = game;
         });
-        this.playerService.query({ filter: 'game-is-null' }).subscribe(
-            (res: HttpResponse<IPlayer[]>) => {
-                if (!this.game.playerId) {
-                    this.players = res.body;
-                } else {
-                    this.playerService.find(this.game.playerId).subscribe(
-                        (subRes: HttpResponse<IPlayer>) => {
-                            this.players = [subRes.body].concat(res.body);
-                        },
-                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
-                    );
-                }
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
         this.wumpusService.query({ filter: 'game-is-null' }).subscribe(
             (res: HttpResponse<IWumpus[]>) => {
                 if (!this.game.wumpusId) {
@@ -59,6 +44,21 @@ export class GameUpdateComponent implements OnInit {
                     this.wumpusService.find(this.game.wumpusId).subscribe(
                         (subRes: HttpResponse<IWumpus>) => {
                             this.wumpuses = [subRes.body].concat(res.body);
+                        },
+                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
+                    );
+                }
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.hunterService.query({ filter: 'game-is-null' }).subscribe(
+            (res: HttpResponse<IHunter[]>) => {
+                if (!this.game.hunterId) {
+                    this.hunters = res.body;
+                } else {
+                    this.hunterService.find(this.game.hunterId).subscribe(
+                        (subRes: HttpResponse<IHunter>) => {
+                            this.hunters = [subRes.body].concat(res.body);
                         },
                         (subRes: HttpErrorResponse) => this.onError(subRes.message)
                     );
@@ -98,11 +98,11 @@ export class GameUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackPlayerById(index: number, item: IPlayer) {
+    trackWumpusById(index: number, item: IWumpus) {
         return item.id;
     }
 
-    trackWumpusById(index: number, item: IWumpus) {
+    trackHunterById(index: number, item: IHunter) {
         return item.id;
     }
     get game() {

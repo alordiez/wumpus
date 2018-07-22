@@ -21,9 +21,9 @@
             "pitNumber": "Pit Number",
             "arrows": "Arrows",
             "goldPosition": "Gold Position",
-            "player": "Player",
             "gamePits": "Game Pits",
-            "wumpus": "Wumpus"
+            "wumpus": "Wumpus",
+            "hunter": "Hunter"
         }
     }
 }

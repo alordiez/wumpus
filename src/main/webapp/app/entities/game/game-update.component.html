@@ -92,17 +92,17 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="wumpusJhApp.game.player" for="field_player">Player</label>
-                    <select class="form-control" id="field_player" name="player" [(ngModel)]="game.playerId">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="playerOption.id" *ngFor="let playerOption of players; trackBy: trackPlayerById">{{playerOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="wumpusJhApp.game.wumpus" for="field_wumpus">Wumpus</label>
                     <select class="form-control" id="field_wumpus" name="wumpus" [(ngModel)]="game.wumpusId">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="wumpusOption.id" *ngFor="let wumpusOption of wumpuses; trackBy: trackWumpusById">{{wumpusOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="wumpusJhApp.game.hunter" for="field_hunter">Hunter</label>
+                    <select class="form-control" id="field_hunter" name="hunter" [(ngModel)]="game.hunterId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="hunterOption.id" *ngFor="let hunterOption of hunters; trackBy: trackHunterById">{{hunterOption.id}}</option>
                     </select>
                 </div>
             </div>

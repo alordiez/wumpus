@@ -29,9 +29,9 @@ public class GameDTO implements Serializable {
 
     private Integer goldPosition;
 
-    private Long playerId;
-
     private Long wumpusId;
+
+    private Long hunterId;
 
     public Long getId() {
         return id;
@@ -81,20 +81,20 @@ public class GameDTO implements Serializable {
         this.goldPosition = goldPosition;
     }
 
-    public Long getPlayerId() {
-        return playerId;
-    }
-
-    public void setPlayerId(Long playerId) {
-        this.playerId = playerId;
-    }
-
     public Long getWumpusId() {
         return wumpusId;
     }
 
     public void setWumpusId(Long wumpusId) {
         this.wumpusId = wumpusId;
+    }
+
+    public Long getHunterId() {
+        return hunterId;
+    }
+
+    public void setHunterId(Long hunterId) {
+        this.hunterId = hunterId;
     }
 
     @Override
@@ -127,8 +127,8 @@ public class GameDTO implements Serializable {
             ", pitNumber=" + getPitNumber() +
             ", arrows=" + getArrows() +
             ", goldPosition=" + getGoldPosition() +
-            ", player=" + getPlayerId() +
             ", wumpus=" + getWumpusId() +
+            ", hunter=" + getHunterId() +
             "}";
     }
 }

@@ -41,9 +41,9 @@
             <column name="gold_position" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="player_id" type="bigint">
+            <column name="wumpus_id" type="bigint">
                 <constraints unique="true" nullable="true" />
-            </column>            <column name="wumpus_id" type="bigint">
+            </column>            <column name="hunter_id" type="bigint">
                 <constraints unique="true" nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->

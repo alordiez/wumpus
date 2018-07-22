@@ -46,16 +46,16 @@ public class Game implements Serializable {
     @Column(name = "gold_position")
     private Integer goldPosition;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Player player;
-
     @OneToMany(mappedBy = "game")
     private Set<GamePits> gamePits = new HashSet<>();
 
     @OneToOne
     @JoinColumn(unique = true)
     private Wumpus wumpus;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Hunter hunter;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -131,19 +131,6 @@ public class Game implements Serializable {
         this.goldPosition = goldPosition;
     }
 
-    public Player getPlayer() {
-        return player;
-    }
-
-    public Game player(Player player) {
-        this.player = player;
-        return this;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
     public Set<GamePits> getGamePits() {
         return gamePits;
     }
@@ -180,6 +167,19 @@ public class Game implements Serializable {
 
     public void setWumpus(Wumpus wumpus) {
         this.wumpus = wumpus;
+    }
+
+    public Hunter getHunter() {
+        return hunter;
+    }
+
+    public Game hunter(Hunter hunter) {
+        this.hunter = hunter;
+        return this;
+    }
+
+    public void setHunter(Hunter hunter) {
+        this.hunter = hunter;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

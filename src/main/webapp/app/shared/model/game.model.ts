@@ -7,9 +7,9 @@ export interface IGame {
     pitNumber?: number;
     arrows?: number;
     goldPosition?: number;
-    playerId?: number;
     gamePits?: IGamePits[];
     wumpusId?: number;
+    hunterId?: number;
 }
 
 export class Game implements IGame {
@@ -20,8 +20,8 @@ export class Game implements IGame {
         public pitNumber?: number,
         public arrows?: number,
         public goldPosition?: number,
-        public playerId?: number,
         public gamePits?: IGamePits[],
-        public wumpusId?: number
+        public wumpusId?: number,
+        public hunterId?: number
     ) {}
 }

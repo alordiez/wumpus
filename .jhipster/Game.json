@@ -3,14 +3,6 @@
     "clientRootFolder": "",
     "relationships": [
         {
-            "relationshipName": "player",
-            "otherEntityName": "player",
-            "relationshipType": "one-to-one",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "game"
-        },
-        {
             "relationshipName": "gamePits",
             "otherEntityName": "gamePits",
             "relationshipType": "one-to-many",
@@ -19,6 +11,14 @@
         {
             "relationshipName": "wumpus",
             "otherEntityName": "wumpus",
+            "relationshipType": "one-to-one",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "game"
+        },
+        {
+            "relationshipName": "hunter",
+            "otherEntityName": "hunter",
             "relationshipType": "one-to-one",
             "otherEntityField": "id",
             "ownerSide": true,
