@@ -1,0 +1,23 @@
+
+{
+    "wumpusJhApp": {
+        "wumpus" : {
+            "home": {
+                "title": "Wumpuses",
+                "createLabel": "Create a new Wumpus",
+                "createOrEditLabel": "Create or edit a Wumpus"
+            },
+            "created": "A new Wumpus is created with identifier {{ param }}",
+            "updated": "A Wumpus is updated with identifier {{ param }}",
+            "deleted": "A Wumpus is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Wumpus {{ id }}?"
+            },
+            "detail": {
+                "title": "Wumpus"
+            },
+            "position": "Position",
+            "isAlive": "Is Alive"
+        }
+    }
+}
