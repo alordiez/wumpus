@@ -22,6 +22,7 @@
             "arrows": "Arrows",
             "goldPosition": "Gold Position",
             "gamePits": "Game Pits",
+            "pitsexceeded": "Número de pozos inválido dato el tamaño del tablero definido. Número máximo {{ param }}",
             "wumpus": "Wumpus",
             "hunter": "Hunter"
         }

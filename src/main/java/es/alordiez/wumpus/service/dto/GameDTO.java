@@ -2,6 +2,7 @@ package es.alordiez.wumpus.service.dto;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -9,126 +10,147 @@ import java.util.Objects;
  */
 public class GameDTO implements Serializable {
 
-    private Long id;
+	private static final long serialVersionUID = -90109309987491150L;
 
-    @NotNull
-    @Min(value = 3)
-    private Integer width;
+	private Long id;
 
-    @NotNull
-    @Min(value = 3)
-    private Integer height;
+	@NotNull
+	@Min(value = 3)
+	private Integer width;
 
-    @NotNull
-    @Min(value = 0)
-    private Integer pitNumber;
+	@NotNull
+	@Min(value = 3)
+	private Integer height;
 
-    @NotNull
-    @Min(value = 3)
-    private Integer arrows;
+	@NotNull
+	@Min(value = 0)
+	private Integer pitNumber;
 
-    private Integer goldPosition;
+	@NotNull
+	@Min(value = 3)
+	private Integer arrows;
 
-    private Long wumpusId;
+	private Integer goldPosition;
 
-    private Long hunterId;
+	private Long wumpusId;
 
-    public Long getId() {
-        return id;
-    }
+	private Long hunterId;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	private List<Integer> movements;
 
-    public Integer getWidth() {
-        return width;
-    }
+	private List<String> feelings;
 
-    public void setWidth(Integer width) {
-        this.width = width;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public Integer getHeight() {
-        return height;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setHeight(Integer height) {
-        this.height = height;
-    }
+	public Integer getWidth() {
+		return width;
+	}
 
-    public Integer getPitNumber() {
-        return pitNumber;
-    }
+	public void setWidth(Integer width) {
+		this.width = width;
+	}
 
-    public void setPitNumber(Integer pitNumber) {
-        this.pitNumber = pitNumber;
-    }
+	public Integer getHeight() {
+		return height;
+	}
 
-    public Integer getArrows() {
-        return arrows;
-    }
+	public void setHeight(Integer height) {
+		this.height = height;
+	}
 
-    public void setArrows(Integer arrows) {
-        this.arrows = arrows;
-    }
+	public Integer getPitNumber() {
+		return pitNumber;
+	}
 
-    public Integer getGoldPosition() {
-        return goldPosition;
-    }
+	public void setPitNumber(Integer pitNumber) {
+		this.pitNumber = pitNumber;
+	}
 
-    public void setGoldPosition(Integer goldPosition) {
-        this.goldPosition = goldPosition;
-    }
+	public Integer getArrows() {
+		return arrows;
+	}
 
-    public Long getWumpusId() {
-        return wumpusId;
-    }
+	public void setArrows(Integer arrows) {
+		this.arrows = arrows;
+	}
 
-    public void setWumpusId(Long wumpusId) {
-        this.wumpusId = wumpusId;
-    }
+	public Integer getGoldPosition() {
+		return goldPosition;
+	}
 
-    public Long getHunterId() {
-        return hunterId;
-    }
+	public void setGoldPosition(Integer goldPosition) {
+		this.goldPosition = goldPosition;
+	}
 
-    public void setHunterId(Long hunterId) {
-        this.hunterId = hunterId;
-    }
+	public Long getWumpusId() {
+		return wumpusId;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+	public void setWumpusId(Long wumpusId) {
+		this.wumpusId = wumpusId;
+	}
 
-        GameDTO gameDTO = (GameDTO) o;
-        if (gameDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), gameDTO.getId());
-    }
+	public Long getHunterId() {
+		return hunterId;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
+	public void setHunterId(Long hunterId) {
+		this.hunterId = hunterId;
+	}
 
-    @Override
-    public String toString() {
-        return "GameDTO{" +
-            "id=" + getId() +
-            ", width=" + getWidth() +
-            ", height=" + getHeight() +
-            ", pitNumber=" + getPitNumber() +
-            ", arrows=" + getArrows() +
-            ", goldPosition=" + getGoldPosition() +
-            ", wumpus=" + getWumpusId() +
-            ", hunter=" + getHunterId() +
-            "}";
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+
+		GameDTO gameDTO = (GameDTO) o;
+		if (gameDTO.getId() == null || getId() == null) {
+			return false;
+		}
+		return Objects.equals(getId(), gameDTO.getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(getId());
+	}
+
+	@Override
+	public String toString() {
+		return "GameDTO{" + 
+				"id=" + getId() + 
+				", width=" + getWidth() + 
+				", height=" + getHeight() + 
+				", pitNumber=" + getPitNumber() + 
+				", arrows=" + getArrows() + 
+				", goldPosition=" + getGoldPosition() + 
+				", wumpus=" + getWumpusId() + 
+				", hunter=" + getHunterId() + "}";
+	}
+
+	public List<Integer> getMovements() {
+		return movements;
+	}
+
+	public void setMovements(List<Integer> movements) {
+		this.movements = movements;
+	}
+
+	public List<String> getFeelings() {
+		return feelings;
+	}
+
+	public void setFeelings(List<String> feelings) {
+		this.feelings = feelings;
+	}
 }

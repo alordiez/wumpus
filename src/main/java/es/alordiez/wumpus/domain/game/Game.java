@@ -1,14 +1,29 @@
 package es.alordiez.wumpus.domain.game;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang3.RandomUtils;
 
 /**
  * A Game.
@@ -17,201 +32,264 @@ import java.util.Objects;
 @Table(name = "game")
 public class Game implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @NotNull
-    @Min(value = 3)
-    @Column(name = "width", nullable = false)
-    private Integer width;
+	@NotNull
+	@Min(value = 3)
+	@Column(name = "width", nullable = false)
+	private Integer width;
 
-    @NotNull
-    @Min(value = 3)
-    @Column(name = "height", nullable = false)
-    private Integer height;
+	@NotNull
+	@Min(value = 3)
+	@Column(name = "height", nullable = false)
+	private Integer height;
 
-    @NotNull
-    @Min(value = 0)
-    @Column(name = "pit_number", nullable = false)
-    private Integer pitNumber;
+	@NotNull
+	@Min(value = 0)
+	@Column(name = "pit_number", nullable = false)
+	private Integer pitNumber;
 
-    @NotNull
-    @Min(value = 3)
-    @Column(name = "arrows", nullable = false)
-    private Integer arrows;
+	@NotNull
+	@Min(value = 3)
+	@Column(name = "arrows", nullable = false)
+	private Integer arrows;
 
-    @Column(name = "gold_position")
-    private Integer goldPosition;
+	@Column(name = "gold_position")
+	private Integer goldPosition;
 
-    @OneToMany(mappedBy = "game")
-    private Set<GamePits> gamePits = new HashSet<>();
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "game")
+	private Set<GamePits> gamePits = new HashSet<>();
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Wumpus wumpus;
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(unique = true)
+	private Wumpus wumpus;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Hunter hunter;
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(unique = true)
+	private Hunter hunter;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
-    public Long getId() {
-        return id;
-    }
+	@ElementCollection(fetch = FetchType.LAZY)
+	@CollectionTable(name = "hunter_movements", joinColumns = @JoinColumn(name = "id"))
+	private List<Integer> movements;
+	
+//	private List<String> feelings;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	/**
+	 * Default empty constructor
+	 */
+	public Game() {
+		// DEFAULT EMPTY CONSTRUCTOR
+	}
 
-    public Integer getWidth() {
-        return width;
-    }
+	/**
+	 * Required args constructor
+	 * 
+	 * @param width
+	 * @param height
+	 * @param pitNumber
+	 * @param arrows
+	 */
+	public Game(Integer width, Integer height, Integer pitNumber, Integer arrows) {
+		this.width = width;
+		this.height = height;
+		this.pitNumber = pitNumber;
+		this.arrows = arrows;
+	}
 
-    public Game width(Integer width) {
-        this.width = width;
-        return this;
-    }
+	// jhipster-needle-entity-add-field - JHipster will add fields here, do not
+	// remove
+	public Long getId() {
+		return id;
+	}
 
-    public void setWidth(Integer width) {
-        this.width = width;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Integer getHeight() {
-        return height;
-    }
+	public Integer getWidth() {
+		return width;
+	}
 
-    public Game height(Integer height) {
-        this.height = height;
-        return this;
-    }
+	public Game width(Integer width) {
+		this.width = width;
+		return this;
+	}
 
-    public void setHeight(Integer height) {
-        this.height = height;
-    }
+	public void setWidth(Integer width) {
+		this.width = width;
+	}
 
-    public Integer getPitNumber() {
-        return pitNumber;
-    }
+	public Integer getHeight() {
+		return height;
+	}
 
-    public Game pitNumber(Integer pitNumber) {
-        this.pitNumber = pitNumber;
-        return this;
-    }
+	public Game height(Integer height) {
+		this.height = height;
+		return this;
+	}
 
-    public void setPitNumber(Integer pitNumber) {
-        this.pitNumber = pitNumber;
-    }
+	public void setHeight(Integer height) {
+		this.height = height;
+	}
 
-    public Integer getArrows() {
-        return arrows;
-    }
+	public Integer getPitNumber() {
+		return pitNumber;
+	}
 
-    public Game arrows(Integer arrows) {
-        this.arrows = arrows;
-        return this;
-    }
+	public Game pitNumber(Integer pitNumber) {
+		this.pitNumber = pitNumber;
+		return this;
+	}
 
-    public void setArrows(Integer arrows) {
-        this.arrows = arrows;
-    }
+	public void setPitNumber(Integer pitNumber) {
+		this.pitNumber = pitNumber;
+	}
 
-    public Integer getGoldPosition() {
-        return goldPosition;
-    }
+	public Integer getArrows() {
+		return arrows;
+	}
 
-    public Game goldPosition(Integer goldPosition) {
-        this.goldPosition = goldPosition;
-        return this;
-    }
+	public Game arrows(Integer arrows) {
+		this.arrows = arrows;
+		return this;
+	}
 
-    public void setGoldPosition(Integer goldPosition) {
-        this.goldPosition = goldPosition;
-    }
+	public void setArrows(Integer arrows) {
+		this.arrows = arrows;
+	}
 
-    public Set<GamePits> getGamePits() {
-        return gamePits;
-    }
+	public Integer getGoldPosition() {
+		return goldPosition;
+	}
 
-    public Game gamePits(Set<GamePits> gamePits) {
-        this.gamePits = gamePits;
-        return this;
-    }
+	public Game goldPosition(Integer goldPosition) {
+		this.goldPosition = goldPosition;
+		return this;
+	}
 
-    public Game addGamePits(GamePits gamePits) {
-        this.gamePits.add(gamePits);
-        gamePits.setGame(this);
-        return this;
-    }
+	public void setGoldPosition(Integer goldPosition) {
+		this.goldPosition = goldPosition;
+	}
 
-    public Game removeGamePits(GamePits gamePits) {
-        this.gamePits.remove(gamePits);
-        gamePits.setGame(null);
-        return this;
-    }
+	public Set<GamePits> getGamePits() {
+		return gamePits;
+	}
 
-    public void setGamePits(Set<GamePits> gamePits) {
-        this.gamePits = gamePits;
-    }
+	public Game gamePits(Set<GamePits> gamePits) {
+		this.gamePits = gamePits;
+		return this;
+	}
 
-    public Wumpus getWumpus() {
-        return wumpus;
-    }
+	public Game addGamePits(GamePits gamePits) {
+		this.gamePits.add(gamePits);
+		gamePits.setGame(this);
+		return this;
+	}
 
-    public Game wumpus(Wumpus wumpus) {
-        this.wumpus = wumpus;
-        return this;
-    }
+	public Game removeGamePits(GamePits gamePits) {
+		this.gamePits.remove(gamePits);
+		gamePits.setGame(null);
+		return this;
+	}
 
-    public void setWumpus(Wumpus wumpus) {
-        this.wumpus = wumpus;
-    }
+	public void setGamePits(Set<GamePits> gamePits) {
+		this.gamePits = gamePits;
+	}
 
-    public Hunter getHunter() {
-        return hunter;
-    }
+	public Wumpus getWumpus() {
+		return wumpus;
+	}
 
-    public Game hunter(Hunter hunter) {
-        this.hunter = hunter;
-        return this;
-    }
+	public Game wumpus(Wumpus wumpus) {
+		this.wumpus = wumpus;
+		return this;
+	}
 
-    public void setHunter(Hunter hunter) {
-        this.hunter = hunter;
-    }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+	public void setWumpus(Wumpus wumpus) {
+		this.wumpus = wumpus;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Game game = (Game) o;
-        if (game.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), game.getId());
-    }
+	public Hunter getHunter() {
+		return hunter;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
+	public Game hunter(Hunter hunter) {
+		this.hunter = hunter;
+		return this;
+	}
 
-    @Override
-    public String toString() {
-        return "Game{" +
-            "id=" + getId() +
-            ", width=" + getWidth() +
-            ", height=" + getHeight() +
-            ", pitNumber=" + getPitNumber() +
-            ", arrows=" + getArrows() +
-            ", goldPosition=" + getGoldPosition() +
-            "}";
-    }
+	public void setHunter(Hunter hunter) {
+		this.hunter = hunter;
+	}
+	// jhipster-needle-entity-add-getters-setters - JHipster will add getters and
+	// setters here, do not remove
+
+	public List<Integer> getMovements() {
+		return movements;
+	}
+
+	public void setMovements(List<Integer> movements) {
+		this.movements = movements;
+	}
+
+	public boolean isPositionUsed(Integer positionToCheck) {
+		if (hunter != null && hunter.getPosition().compareTo(positionToCheck) == 0) {
+			return true;
+		}
+		if (wumpus != null && wumpus.getPosition().compareTo(positionToCheck) == 0) {
+			return true;
+		}
+		if (gamePits != null && !gamePits.isEmpty()) {
+			Optional<GamePits> match = gamePits.stream().filter(pit -> pit.getPosition() == positionToCheck)
+					.findFirst();
+			if (match.isPresent()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public Integer getRandomFreeField() {
+		Integer boardFileds = height * width - 1;
+		Integer generatedValues = 1;
+		Integer nextPosition = RandomUtils.nextInt(0, boardFileds);
+		while (isPositionUsed(nextPosition)) {
+			nextPosition = RandomUtils.nextInt(0, boardFileds);
+			generatedValues++;
+			if (generatedValues >= boardFileds) {
+				return -1;
+			}
+		}
+		return nextPosition;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		Game game = (Game) o;
+		if (game.getId() == null || getId() == null) {
+			return false;
+		}
+		return Objects.equals(getId(), game.getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(getId());
+	}
+
+	@Override
+	public String toString() {
+		return "Game{" + "id=" + getId() + ", width=" + getWidth() + ", height=" + getHeight() + ", pitNumber="
+				+ getPitNumber() + ", arrows=" + getArrows() + ", goldPosition=" + getGoldPosition() + "}";
+	}
 }

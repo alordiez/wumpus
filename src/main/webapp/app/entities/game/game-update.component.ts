@@ -18,6 +18,7 @@ import { HunterService } from 'app/entities/hunter';
 export class GameUpdateComponent implements OnInit {
     private _game: IGame;
     isSaving: boolean;
+invalidPitNumber: boolean;
 
     wumpuses: IWumpus[];
 
@@ -72,7 +73,15 @@ export class GameUpdateComponent implements OnInit {
         window.history.back();
     }
 
+    private validatePitNumber() {
+      this.invalidPitNumber = this.game.pitNumber > ((this.game.width * this.game.height) - 4);
+    }
+
     save() {
+        this.validatePitNumber();
+        if (this.invalidPitNumber) {
+          return;
+        }
         this.isSaving = true;
         if (this.game.id !== undefined) {
             this.subscribeToSaveResponse(this.gameService.update(this.game));

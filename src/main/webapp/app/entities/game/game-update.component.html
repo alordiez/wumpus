@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <form name="editForm" role="form" (ngSubmit)="save()" #editForm="ngForm" *ngIf="!success">
             <h2 id="jhi-game-heading" jhiTranslate="wumpusJhApp.game.home.createOrEditLabel">Create or edit a Game</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
@@ -12,7 +12,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="wumpusJhApp.game.width" for="field_width">Width</label>
                     <input type="number" class="form-control" name="width" id="field_width"
-                        [(ngModel)]="game.width" required min="3" jhiMin="3"/>
+                        [(ngModel)]="game.width" placeholder="3" required min="3" jhiMin="3"/>
                     <div [hidden]="!(editForm.controls.width?.dirty && editForm.controls.width?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.width?.errors?.required" jhiTranslate="entity.validation.required">
@@ -31,7 +31,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="wumpusJhApp.game.height" for="field_height">Height</label>
                     <input type="number" class="form-control" name="height" id="field_height"
-                        [(ngModel)]="game.height" required min="3" jhiMin="3"/>
+                        [(ngModel)]="game.height" placeholder="3" required min="3" jhiMin="3"/>
                     <div [hidden]="!(editForm.controls.height?.dirty && editForm.controls.height?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.height?.errors?.required" jhiTranslate="entity.validation.required">
@@ -50,7 +50,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="wumpusJhApp.game.pitNumber" for="field_pitNumber">Pit Number</label>
                     <input type="number" class="form-control" name="pitNumber" id="field_pitNumber"
-                        [(ngModel)]="game.pitNumber" required min="0" jhiMin="0"/>
+                        [(ngModel)]="game.pitNumber" placeholder="3" required min="0" jhiMin="0"/>
                     <div [hidden]="!(editForm.controls.pitNumber?.dirty && editForm.controls.pitNumber?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.pitNumber?.errors?.required" jhiTranslate="entity.validation.required">
@@ -66,10 +66,14 @@
                         </small>
                     </div>
                 </div>
+                <div class="alert alert-danger" *ngIf="invalidPitNumber" jhiTranslate="wumpusJhApp.game.pitsexceeded"
+                     translateValues="{param: '{{(game.width * game.height)-2}}'}">
+                    Invalid value. Regarding to your board you can't have more than
+                </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="wumpusJhApp.game.arrows" for="field_arrows">Arrows</label>
                     <input type="number" class="form-control" name="arrows" id="field_arrows"
-                        [(ngModel)]="game.arrows" required min="3" jhiMin="3"/>
+                        [(ngModel)]="game.arrows" placeholder="3" ºrequired min="3" jhiMin="3"/>
                     <div [hidden]="!(editForm.controls.arrows?.dirty && editForm.controls.arrows?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.arrows?.errors?.required" jhiTranslate="entity.validation.required">
@@ -85,6 +89,7 @@
                         </small>
                     </div>
                 </div>
+<div *ngIf="game.id">
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="wumpusJhApp.game.goldPosition" for="field_goldPosition">Gold Position</label>
                     <input type="number" class="form-control" name="goldPosition" id="field_goldPosition"
@@ -105,6 +110,7 @@
                         <option [ngValue]="hunterOption.id" *ngFor="let hunterOption of hunters; trackBy: trackHunterById">{{hunterOption.id}}</option>
                     </select>
                 </div>
+            </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

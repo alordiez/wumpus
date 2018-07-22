@@ -6,6 +6,9 @@
             "relationshipName": "game",
             "otherEntityName": "game",
             "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
             "otherEntityField": "id"
         }
     ],

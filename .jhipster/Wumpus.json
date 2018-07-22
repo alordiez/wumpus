@@ -15,6 +15,7 @@
             "fieldName": "position",
             "fieldType": "Integer",
             "fieldValidateRules": [
+                "required",
                 "min"
             ],
             "fieldValidateRulesMin": "0"
