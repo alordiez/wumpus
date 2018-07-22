@@ -16,7 +16,8 @@
             "detail": {
                 "title": "Game Pits"
             },
-            "position": "Position"
+            "position": "Position",
+            "game": "Game"
         }
     }
 }

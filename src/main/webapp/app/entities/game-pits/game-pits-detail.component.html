@@ -9,6 +9,12 @@
                 <dd>
                     <span>{{gamePits.position}}</span>
                 </dd>
+                <dt><span jhiTranslate="wumpusJhApp.gamePits.game">Game</span></dt>
+                <dd>
+                    <div *ngIf="gamePits.gameId">
+                        <a [routerLink]="['/game', gamePits.gameId, 'view']">{{gamePits.gameId}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

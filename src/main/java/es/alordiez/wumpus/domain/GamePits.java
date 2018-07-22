@@ -1,5 +1,6 @@
 package es.alordiez.wumpus.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -25,6 +26,10 @@ public class GamePits implements Serializable {
     @Column(name = "position", nullable = false)
     private Integer position;
 
+    @ManyToOne
+    @JsonIgnoreProperties("gamePits")
+    private Game game;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -45,6 +50,19 @@ public class GamePits implements Serializable {
 
     public void setPosition(Integer position) {
         this.position = position;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public GamePits game(Game game) {
+        this.game = game;
+        return this;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

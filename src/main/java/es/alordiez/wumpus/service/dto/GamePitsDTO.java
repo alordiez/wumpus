@@ -15,6 +15,8 @@ public class GamePitsDTO implements Serializable {
     @Min(value = 0)
     private Integer position;
 
+    private Long gameId;
+
     public Long getId() {
         return id;
     }
@@ -29,6 +31,14 @@ public class GamePitsDTO implements Serializable {
 
     public void setPosition(Integer position) {
         this.position = position;
+    }
+
+    public Long getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(Long gameId) {
+        this.gameId = gameId;
     }
 
     @Override
@@ -57,6 +67,7 @@ public class GamePitsDTO implements Serializable {
         return "GamePitsDTO{" +
             "id=" + getId() +
             ", position=" + getPosition() +
+            ", game=" + getGameId() +
             "}";
     }
 }
