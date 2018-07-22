@@ -1,8 +1,7 @@
 package es.alordiez.wumpus.web.rest;
 
 import es.alordiez.wumpus.WumpusJhApp;
-
-import es.alordiez.wumpus.domain.Wumpus;
+import es.alordiez.wumpus.domain.game.Wumpus;
 import es.alordiez.wumpus.repository.WumpusRepository;
 import es.alordiez.wumpus.service.WumpusService;
 import es.alordiez.wumpus.service.dto.WumpusDTO;

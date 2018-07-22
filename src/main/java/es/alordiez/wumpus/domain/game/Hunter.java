@@ -1,4 +1,4 @@
-package es.alordiez.wumpus.domain;
+package es.alordiez.wumpus.domain.game;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -9,11 +9,11 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A Wumpus.
+ * A Hunter.
  */
 @Entity
-@Table(name = "wumpus")
-public class Wumpus implements Serializable {
+@Table(name = "hunter")
+public class Hunter implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,7 +29,7 @@ public class Wumpus implements Serializable {
     @Column(name = "is_alive", nullable = false)
     private Boolean isAlive;
 
-    @OneToOne(mappedBy = "wumpus")
+    @OneToOne(mappedBy = "hunter")
     @JsonIgnore
     private Game game;
 
@@ -46,7 +46,7 @@ public class Wumpus implements Serializable {
         return position;
     }
 
-    public Wumpus position(Integer position) {
+    public Hunter position(Integer position) {
         this.position = position;
         return this;
     }
@@ -59,7 +59,7 @@ public class Wumpus implements Serializable {
         return isAlive;
     }
 
-    public Wumpus isAlive(Boolean isAlive) {
+    public Hunter isAlive(Boolean isAlive) {
         this.isAlive = isAlive;
         return this;
     }
@@ -72,7 +72,7 @@ public class Wumpus implements Serializable {
         return game;
     }
 
-    public Wumpus game(Game game) {
+    public Hunter game(Game game) {
         this.game = game;
         return this;
     }
@@ -90,11 +90,11 @@ public class Wumpus implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Wumpus wumpus = (Wumpus) o;
-        if (wumpus.getId() == null || getId() == null) {
+        Hunter hunter = (Hunter) o;
+        if (hunter.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), wumpus.getId());
+        return Objects.equals(getId(), hunter.getId());
     }
 
     @Override
@@ -104,7 +104,7 @@ public class Wumpus implements Serializable {
 
     @Override
     public String toString() {
-        return "Wumpus{" +
+        return "Hunter{" +
             "id=" + getId() +
             ", position=" + getPosition() +
             ", isAlive='" + isIsAlive() + "'" +

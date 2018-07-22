@@ -1,6 +1,6 @@
-package es.alordiez.wumpus.domain;
+package es.alordiez.wumpus.domain.game;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -9,11 +9,11 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A GamePits.
+ * A Wumpus.
  */
 @Entity
-@Table(name = "game_pits")
-public class GamePits implements Serializable {
+@Table(name = "wumpus")
+public class Wumpus implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,13 +21,16 @@ public class GamePits implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     @Min(value = 0)
-    @Column(name = "position", nullable = false)
+    @Column(name = "position")
     private Integer position;
 
-    @ManyToOne
-    @JsonIgnoreProperties("gamePits")
+    @NotNull
+    @Column(name = "is_alive", nullable = false)
+    private Boolean isAlive;
+
+    @OneToOne(mappedBy = "wumpus")
+    @JsonIgnore
     private Game game;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -43,7 +46,7 @@ public class GamePits implements Serializable {
         return position;
     }
 
-    public GamePits position(Integer position) {
+    public Wumpus position(Integer position) {
         this.position = position;
         return this;
     }
@@ -52,11 +55,24 @@ public class GamePits implements Serializable {
         this.position = position;
     }
 
+    public Boolean isIsAlive() {
+        return isAlive;
+    }
+
+    public Wumpus isAlive(Boolean isAlive) {
+        this.isAlive = isAlive;
+        return this;
+    }
+
+    public void setIsAlive(Boolean isAlive) {
+        this.isAlive = isAlive;
+    }
+
     public Game getGame() {
         return game;
     }
 
-    public GamePits game(Game game) {
+    public Wumpus game(Game game) {
         this.game = game;
         return this;
     }
@@ -74,11 +90,11 @@ public class GamePits implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        GamePits gamePits = (GamePits) o;
-        if (gamePits.getId() == null || getId() == null) {
+        Wumpus wumpus = (Wumpus) o;
+        if (wumpus.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), gamePits.getId());
+        return Objects.equals(getId(), wumpus.getId());
     }
 
     @Override
@@ -88,9 +104,10 @@ public class GamePits implements Serializable {
 
     @Override
     public String toString() {
-        return "GamePits{" +
+        return "Wumpus{" +
             "id=" + getId() +
             ", position=" + getPosition() +
+            ", isAlive='" + isIsAlive() + "'" +
             "}";
     }
 }

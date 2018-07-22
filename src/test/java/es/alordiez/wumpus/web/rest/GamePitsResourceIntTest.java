@@ -1,8 +1,7 @@
 package es.alordiez.wumpus.web.rest;
 
 import es.alordiez.wumpus.WumpusJhApp;
-
-import es.alordiez.wumpus.domain.GamePits;
+import es.alordiez.wumpus.domain.game.GamePits;
 import es.alordiez.wumpus.repository.GamePitsRepository;
 import es.alordiez.wumpus.service.GamePitsService;
 import es.alordiez.wumpus.service.dto.GamePitsDTO;

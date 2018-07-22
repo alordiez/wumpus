@@ -1,7 +1,7 @@
 package es.alordiez.wumpus.service.impl;
 
 import es.alordiez.wumpus.service.GamePitsService;
-import es.alordiez.wumpus.domain.GamePits;
+import es.alordiez.wumpus.domain.game.GamePits;
 import es.alordiez.wumpus.repository.GamePitsRepository;
 import es.alordiez.wumpus.service.dto.GamePitsDTO;
 import es.alordiez.wumpus.service.mapper.GamePitsMapper;

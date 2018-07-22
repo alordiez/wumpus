@@ -1,6 +1,7 @@
 package es.alordiez.wumpus.service.mapper;
 
 import es.alordiez.wumpus.domain.*;
+import es.alordiez.wumpus.domain.game.Wumpus;
 import es.alordiez.wumpus.service.dto.WumpusDTO;
 
 import org.mapstruct.*;

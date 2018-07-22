@@ -1,4 +1,4 @@
-package es.alordiez.wumpus.domain;
+package es.alordiez.wumpus.domain.game;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

@@ -1,6 +1,6 @@
-package es.alordiez.wumpus.domain;
+package es.alordiez.wumpus.domain.game;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -9,11 +9,11 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A Hunter.
+ * A GamePits.
  */
 @Entity
-@Table(name = "hunter")
-public class Hunter implements Serializable {
+@Table(name = "game_pits")
+public class GamePits implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,16 +21,13 @@ public class Hunter implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Min(value = 0)
-    @Column(name = "position")
+    @Column(name = "position", nullable = false)
     private Integer position;
 
-    @NotNull
-    @Column(name = "is_alive", nullable = false)
-    private Boolean isAlive;
-
-    @OneToOne(mappedBy = "hunter")
-    @JsonIgnore
+    @ManyToOne
+    @JsonIgnoreProperties("gamePits")
     private Game game;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -46,7 +43,7 @@ public class Hunter implements Serializable {
         return position;
     }
 
-    public Hunter position(Integer position) {
+    public GamePits position(Integer position) {
         this.position = position;
         return this;
     }
@@ -55,24 +52,11 @@ public class Hunter implements Serializable {
         this.position = position;
     }
 
-    public Boolean isIsAlive() {
-        return isAlive;
-    }
-
-    public Hunter isAlive(Boolean isAlive) {
-        this.isAlive = isAlive;
-        return this;
-    }
-
-    public void setIsAlive(Boolean isAlive) {
-        this.isAlive = isAlive;
-    }
-
     public Game getGame() {
         return game;
     }
 
-    public Hunter game(Game game) {
+    public GamePits game(Game game) {
         this.game = game;
         return this;
     }
@@ -90,11 +74,11 @@ public class Hunter implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Hunter hunter = (Hunter) o;
-        if (hunter.getId() == null || getId() == null) {
+        GamePits gamePits = (GamePits) o;
+        if (gamePits.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), hunter.getId());
+        return Objects.equals(getId(), gamePits.getId());
     }
 
     @Override
@@ -104,10 +88,9 @@ public class Hunter implements Serializable {
 
     @Override
     public String toString() {
-        return "Hunter{" +
+        return "GamePits{" +
             "id=" + getId() +
             ", position=" + getPosition() +
-            ", isAlive='" + isIsAlive() + "'" +
             "}";
     }
 }

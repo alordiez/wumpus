@@ -1,8 +1,9 @@
 package es.alordiez.wumpus.repository;
 
-import es.alordiez.wumpus.domain.Wumpus;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
+
+import es.alordiez.wumpus.domain.game.Wumpus;
 
 
 /**
