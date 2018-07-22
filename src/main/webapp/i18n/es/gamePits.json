@@ -1,0 +1,22 @@
+
+{
+    "wumpusJhApp": {
+        "gamePits" : {
+            "home": {
+                "title": "Game Pits",
+                "createLabel": "Crear nuevo Game Pits",
+                "createOrEditLabel": "Crear o editar Game Pits"
+            },
+            "created": "Un nuevo Game Pits ha sido creado con el identificador {{ param }}",
+            "updated": "Un Game Pits ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Game Pits ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Game Pits {{ id }}?"
+            },
+            "detail": {
+                "title": "Game Pits"
+            },
+            "position": "Position"
+        }
+    }
+}

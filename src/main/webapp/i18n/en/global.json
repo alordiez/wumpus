@@ -9,6 +9,7 @@
                 "main": "Entities",
                 "wumpus": "Wumpus",
                 "hunter": "Hunter",
+                "gamePits": "Game Pits",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
