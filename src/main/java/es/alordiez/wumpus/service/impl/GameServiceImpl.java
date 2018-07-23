@@ -9,8 +9,10 @@ import java.util.stream.Collectors;
 
 import javax.xml.ws.http.HTTPException;
 
+import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,13 +40,13 @@ public class GameServiceImpl implements GameService {
 
 	private final Logger log = LoggerFactory.getLogger(GameServiceImpl.class);
 
-	private final GameRepository gameRepository;
+	@Autowired
+	private GameRepository gameRepository;
 
-	private final GameMapper gameMapper;
+//	private final GameMapper gameMapper = Mappers.getMapper(GameMapper.class);
 
-	public GameServiceImpl(GameRepository gameRepository, GameMapper gameMapper) {
-		this.gameRepository = gameRepository;
-		this.gameMapper = gameMapper;
+	public GameServiceImpl() {
+		//DEFAULT EMTPY CONSTRUCTOR
 	}
 
 	/**
@@ -57,10 +59,10 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public GameDTO save(GameDTO gameDTO) {
 		log.debug("Request to save Game : {}", gameDTO);
-		Game game = gameMapper.toEntity(gameDTO);
+		Game game = Mappers.getMapper(GameMapper.class).toEntity(gameDTO);
 		game = initilizeGame(game);
 		game = gameRepository.save(game);
-		return gameMapper.toDto(game);
+		return Mappers.getMapper(GameMapper.class).toDto(game);
 	}
 
 	/**
@@ -107,7 +109,7 @@ public class GameServiceImpl implements GameService {
 	@Transactional(readOnly = true)
 	public List<GameDTO> findAll() {
 		log.debug("Request to get all Games");
-		return gameRepository.findAll().stream().map(gameMapper::toDto)
+		return gameRepository.findAll().stream().map(Mappers.getMapper(GameMapper.class)::toDto)
 				.collect(Collectors.toCollection(LinkedList::new));
 	}
 
@@ -122,7 +124,7 @@ public class GameServiceImpl implements GameService {
 	@Transactional(readOnly = true)
 	public Optional<GameDTO> findOne(Long id) {
 		log.debug("Request to get Game : {}", id);
-		return gameRepository.findById(id).map(gameMapper::toDto);
+		return gameRepository.findById(id).map(Mappers.getMapper(GameMapper.class)::toDto);
 	}
 
 	/**
@@ -157,10 +159,10 @@ public class GameServiceImpl implements GameService {
 			gameRepository.save(selectedGame);
 		}
 
-		GameDTO gameDto = gameMapper.toDto(selectedGame);
+		GameDTO gameDto = Mappers.getMapper(GameMapper.class).toDto(selectedGame);
 		gameDto.setBoard(initializeBoard(selectedGame));
 		
-		return gameMapper.toDto(selectedGame);
+		return Mappers.getMapper(GameMapper.class).toDto(selectedGame);
 	}
 
 	/**

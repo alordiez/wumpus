@@ -33,12 +33,6 @@ public class GameDTO implements Serializable {
 	@Min(value = 3)
 	private Integer arrows;
 
-	private Integer goldPosition;
-
-	private Long wumpusId;
-
-	private Long hunterId;
-
 	private List<Integer> movements;
 
 	private HashMap<Integer,HashMap<Integer,FieldDTO>> board;
@@ -83,30 +77,6 @@ public class GameDTO implements Serializable {
 		this.arrows = arrows;
 	}
 
-	public Integer getGoldPosition() {
-		return goldPosition;
-	}
-
-	public void setGoldPosition(Integer goldPosition) {
-		this.goldPosition = goldPosition;
-	}
-
-	public Long getWumpusId() {
-		return wumpusId;
-	}
-
-	public void setWumpusId(Long wumpusId) {
-		this.wumpusId = wumpusId;
-	}
-
-	public Long getHunterId() {
-		return hunterId;
-	}
-
-	public void setHunterId(Long hunterId) {
-		this.hunterId = hunterId;
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -135,10 +105,8 @@ public class GameDTO implements Serializable {
 				", width=" + getWidth() + 
 				", height=" + getHeight() + 
 				", pitNumber=" + getPitNumber() + 
-				", arrows=" + getArrows() + 
-				", goldPosition=" + getGoldPosition() + 
-				", wumpus=" + getWumpusId() + 
-				", hunter=" + getHunterId() + "}";
+				", arrows=" + getArrows()
+				;
 	}
 
 	public List<Integer> getMovements() {
