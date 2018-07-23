@@ -76,8 +76,6 @@ public class Game implements Serializable {
 	@CollectionTable(name = "hunter_movements", joinColumns = @JoinColumn(name = "id"))
 	private List<Integer> movements;
 	
-//	private List<String> feelings;
-
 	/**
 	 * Default empty constructor
 	 */

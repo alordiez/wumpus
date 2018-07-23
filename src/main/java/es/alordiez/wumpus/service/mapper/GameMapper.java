@@ -1,10 +1,10 @@
 package es.alordiez.wumpus.service.mapper;
 
-import es.alordiez.wumpus.domain.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
 import es.alordiez.wumpus.domain.game.Game;
 import es.alordiez.wumpus.service.dto.GameDTO;
-
-import org.mapstruct.*;
 
 /**
  * Mapper for the entity Game and its DTO GameDTO.

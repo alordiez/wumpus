@@ -1,9 +1,12 @@
 package es.alordiez.wumpus.service.dto;
 
-import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * A DTO for the Game entity.
@@ -38,7 +41,7 @@ public class GameDTO implements Serializable {
 
 	private List<Integer> movements;
 
-	private List<String> feelings;
+	private HashMap<Integer,HashMap<Integer,FieldDTO>> board;
 
 	public Long getId() {
 		return id;
@@ -146,11 +149,12 @@ public class GameDTO implements Serializable {
 		this.movements = movements;
 	}
 
-	public List<String> getFeelings() {
-		return feelings;
+	public HashMap<Integer, HashMap<Integer, FieldDTO>> getBoard() {
+		return board;
 	}
 
-	public void setFeelings(List<String> feelings) {
-		this.feelings = feelings;
+	public void setBoard(HashMap<Integer, HashMap<Integer, FieldDTO>> board) {
+		this.board = board;
 	}
+	
 }

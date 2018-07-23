@@ -109,6 +109,23 @@ public class GameResource {
 		Optional<GameDTO> gameDTO = gameService.findOne(id);
 		return ResponseUtil.wrapOrNotFound(gameDTO);
 	}
+	
+	/**
+	 * GET /games/:id : get the "id" game.
+	 *
+	 * @param id
+	 *            the id of the gameDTO to retrieve
+	 * @return the ResponseEntity with status 200 (OK) and with body the gameDTO, or
+	 *         with status 404 (Not Found)
+	 */
+	@GetMapping("/games/{id}/start-game")
+	@Timed
+	public ResponseEntity<GameDTO> startGame(@PathVariable Long id, 
+			@RequestParam(value = "restart", required = false) Boolean restart) {
+		log.debug("REST request to start Game : {}", id);
+		GameDTO gameDTO = gameService.startGame(id, restart);
+		return ResponseEntity.ok().body(gameDTO);
+	}
 
 	/**
 	 * PATCH /games/:id : get the "id" game.

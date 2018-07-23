@@ -40,4 +40,12 @@ public interface GameService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     * Starts or re-starts a game
+     * @param id
+     * @param restart
+     * @return
+     */
+    GameDTO startGame(Long id, Boolean restart);
 }
