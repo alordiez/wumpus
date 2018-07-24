@@ -1,0 +1,11 @@
+
+{
+    "wumpusJhApp": {
+        "play-game" : {
+            "home": {
+                "title": "Bienvenido al juego Wumpus",
+                "start-playing": "Empieza a jugar!"
+            }
+        }
+    }
+}

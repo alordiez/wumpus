@@ -15,6 +15,7 @@ import { WumpusJhAppRoutingModule } from './app-routing.module';
 import { WumpusJhHomeModule } from './home/home.module';
 import { WumpusJhAccountModule } from './account/account.module';
 import { WumpusJhEntityModule } from './entities/entity.module';
+import { WumpusJhPlayGameModule } from './play-game/play-game.module';
 import { StateStorageService } from 'app/core/auth/state-storage.service';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
@@ -28,7 +29,8 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         WumpusJhCoreModule,
         WumpusJhHomeModule,
         WumpusJhAccountModule,
-        WumpusJhEntityModule
+        WumpusJhEntityModule,
+        WumpusJhPlayGameModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],

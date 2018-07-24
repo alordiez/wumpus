@@ -3,30 +3,30 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
-import { IWumpus } from 'app/shared/model/wumpus.model';
+import { IGame } from '../shared/model/game.model';
 import { Principal } from 'app/core';
-import { WumpusService } from './wumpus.service';
+import { PlayGameService } from './play-game.service';
 
 @Component({
-    selector: 'jhi-wumpus',
-    templateUrl: './wumpus.component.html'
+    selector: 'jhi-play-game',
+    templateUrl: './play-game.component.html'
 })
-export class WumpusComponent implements OnInit, OnDestroy {
-    wumpuses: IWumpus[];
+export class PlayGameComponent implements OnInit, OnDestroy {
+    games: IGame[];
     currentAccount: any;
     eventSubscriber: Subscription;
 
     constructor(
-        private wumpusService: WumpusService,
+        private playGameService: PlayGameService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
     ) {}
 
     loadAll() {
-        this.wumpusService.query().subscribe(
-            (res: HttpResponse<IWumpus[]>) => {
-                this.wumpuses = res.body;
+        this.playGameService.query().subscribe(
+            (res: HttpResponse<IGame[]>) => {
+                this.games = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -37,19 +37,19 @@ export class WumpusComponent implements OnInit, OnDestroy {
         this.principal.identity().then(account => {
             this.currentAccount = account;
         });
-        this.registerChangeInWumpuses();
+        this.registerChangeInGames();
     }
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId(index: number, item: IWumpus) {
+    trackId(index: number, item: IGame) {
         return item.id;
     }
 
-    registerChangeInWumpuses() {
-        this.eventSubscriber = this.eventManager.subscribe('wumpusListModification', response => this.loadAll());
+    registerChangeInGames() {
+        this.eventSubscriber = this.eventManager.subscribe('gamesListModification', response => this.loadAll());
     }
 
     private onError(errorMessage: string) {
