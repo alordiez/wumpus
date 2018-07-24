@@ -6,10 +6,6 @@ import { JhiAlertService } from 'ng-jhipster';
 
 import { IGame } from 'app/shared/model/game.model';
 import { GameService } from './game.service';
-import { IWumpus } from 'app/shared/model/wumpus.model';
-import { WumpusService } from 'app/entities/wumpus';
-import { IHunter } from 'app/shared/model/hunter.model';
-import { HunterService } from 'app/entities/hunter';
 
 @Component({
     selector: 'jhi-game-update',
@@ -20,15 +16,9 @@ export class GameUpdateComponent implements OnInit {
     isSaving: boolean;
 invalidPitNumber: boolean;
 
-    wumpuses: IWumpus[];
-
-    hunters: IHunter[];
-
     constructor(
         private jhiAlertService: JhiAlertService,
         private gameService: GameService,
-        private wumpusService: WumpusService,
-        private hunterService: HunterService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -37,36 +27,6 @@ invalidPitNumber: boolean;
         this.activatedRoute.data.subscribe(({ game }) => {
             this.game = game;
         });
-        this.wumpusService.query({ filter: 'game-is-null' }).subscribe(
-            (res: HttpResponse<IWumpus[]>) => {
-                if (!this.game.wumpusId) {
-                    this.wumpuses = res.body;
-                } else {
-                    this.wumpusService.find(this.game.wumpusId).subscribe(
-                        (subRes: HttpResponse<IWumpus>) => {
-                            this.wumpuses = [subRes.body].concat(res.body);
-                        },
-                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
-                    );
-                }
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.hunterService.query({ filter: 'game-is-null' }).subscribe(
-            (res: HttpResponse<IHunter[]>) => {
-                if (!this.game.hunterId) {
-                    this.hunters = res.body;
-                } else {
-                    this.hunterService.find(this.game.hunterId).subscribe(
-                        (subRes: HttpResponse<IHunter>) => {
-                            this.hunters = [subRes.body].concat(res.body);
-                        },
-                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
-                    );
-                }
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
     }
 
     previousState() {
@@ -105,14 +65,6 @@ invalidPitNumber: boolean;
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
-    }
-
-    trackWumpusById(index: number, item: IWumpus) {
-        return item.id;
-    }
-
-    trackHunterById(index: number, item: IHunter) {
-        return item.id;
     }
     get game() {
         return this._game;

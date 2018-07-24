@@ -53,9 +53,6 @@ public class GameResourceIntTest {
     private static final Integer DEFAULT_ARROWS = 3;
     private static final Integer UPDATED_ARROWS = 4;
 
-    private static final Integer DEFAULT_GOLD_POSITION = 1;
-    private static final Integer UPDATED_GOLD_POSITION = 2;
-
     @Autowired
     private GameRepository gameRepository;
 
@@ -105,8 +102,7 @@ public class GameResourceIntTest {
             .width(DEFAULT_WIDTH)
             .height(DEFAULT_HEIGHT)
             .pitNumber(DEFAULT_PIT_NUMBER)
-            .arrows(DEFAULT_ARROWS)
-            .goldPosition(DEFAULT_GOLD_POSITION);
+            .arrows(DEFAULT_ARROWS);
         return game;
     }
 
@@ -135,7 +131,6 @@ public class GameResourceIntTest {
         assertThat(testGame.getHeight()).isEqualTo(DEFAULT_HEIGHT);
         assertThat(testGame.getPitNumber()).isEqualTo(DEFAULT_PIT_NUMBER);
         assertThat(testGame.getArrows()).isEqualTo(DEFAULT_ARROWS);
-        assertThat(testGame.getGoldPosition()).isEqualTo(DEFAULT_GOLD_POSITION);
     }
 
     @Test
@@ -248,8 +243,7 @@ public class GameResourceIntTest {
             .andExpect(jsonPath("$.[*].width").value(hasItem(DEFAULT_WIDTH)))
             .andExpect(jsonPath("$.[*].height").value(hasItem(DEFAULT_HEIGHT)))
             .andExpect(jsonPath("$.[*].pitNumber").value(hasItem(DEFAULT_PIT_NUMBER)))
-            .andExpect(jsonPath("$.[*].arrows").value(hasItem(DEFAULT_ARROWS)))
-            .andExpect(jsonPath("$.[*].goldPosition").value(hasItem(DEFAULT_GOLD_POSITION)));
+            .andExpect(jsonPath("$.[*].arrows").value(hasItem(DEFAULT_ARROWS)));
     }
     
 
@@ -267,8 +261,7 @@ public class GameResourceIntTest {
             .andExpect(jsonPath("$.width").value(DEFAULT_WIDTH))
             .andExpect(jsonPath("$.height").value(DEFAULT_HEIGHT))
             .andExpect(jsonPath("$.pitNumber").value(DEFAULT_PIT_NUMBER))
-            .andExpect(jsonPath("$.arrows").value(DEFAULT_ARROWS))
-            .andExpect(jsonPath("$.goldPosition").value(DEFAULT_GOLD_POSITION));
+            .andExpect(jsonPath("$.arrows").value(DEFAULT_ARROWS));
     }
     @Test
     @Transactional
@@ -294,8 +287,7 @@ public class GameResourceIntTest {
             .width(UPDATED_WIDTH)
             .height(UPDATED_HEIGHT)
             .pitNumber(UPDATED_PIT_NUMBER)
-            .arrows(UPDATED_ARROWS)
-            .goldPosition(UPDATED_GOLD_POSITION);
+            .arrows(UPDATED_ARROWS);
         GameDTO gameDTO = gameMapper.toDto(updatedGame);
 
         restGameMockMvc.perform(put("/api/games")
@@ -311,7 +303,6 @@ public class GameResourceIntTest {
         assertThat(testGame.getHeight()).isEqualTo(UPDATED_HEIGHT);
         assertThat(testGame.getPitNumber()).isEqualTo(UPDATED_PIT_NUMBER);
         assertThat(testGame.getArrows()).isEqualTo(UPDATED_ARROWS);
-        assertThat(testGame.getGoldPosition()).isEqualTo(UPDATED_GOLD_POSITION);
     }
 
     @Test

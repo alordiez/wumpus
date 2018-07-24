@@ -19,9 +19,6 @@
             <th><span jhiTranslate="wumpusJhApp.game.height">Height</span></th>
             <th><span jhiTranslate="wumpusJhApp.game.pitNumber">Pit Number</span></th>
             <th><span jhiTranslate="wumpusJhApp.game.arrows">Arrows</span></th>
-            <th><span jhiTranslate="wumpusJhApp.game.goldPosition">Gold Position</span></th>
-            <th><span jhiTranslate="wumpusJhApp.game.wumpus">Wumpus</span></th>
-            <th><span jhiTranslate="wumpusJhApp.game.hunter">Hunter</span></th>
             <th></th>
             </tr>
             </thead>
@@ -32,17 +29,6 @@
                 <td>{{game.height}}</td>
                 <td>{{game.pitNumber}}</td>
                 <td>{{game.arrows}}</td>
-                <td>{{game.goldPosition}}</td>
-                <td>
-                    <div *ngIf="game.wumpusId">
-                        <a [routerLink]="['../wumpus', game.wumpusId , 'view' ]" >{{game.wumpusId}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="game.hunterId">
-                        <a [routerLink]="['../hunter', game.hunterId , 'view' ]" >{{game.hunterId}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

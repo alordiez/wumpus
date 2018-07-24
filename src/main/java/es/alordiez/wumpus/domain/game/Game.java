@@ -73,7 +73,7 @@ public class Game implements Serializable {
 	private Hunter hunter;
 
 	@ElementCollection(fetch = FetchType.LAZY)
-	@CollectionTable(name = "hunter_movements", joinColumns = @JoinColumn(name = "id"))
+	@CollectionTable(name = "hunter_movements", joinColumns = @JoinColumn(name = "game_id"))
 	private List<Integer> movements;
 	
 	/**

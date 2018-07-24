@@ -21,22 +21,6 @@
                 <dd>
                     <span>{{game.arrows}}</span>
                 </dd>
-                <dt><span jhiTranslate="wumpusJhApp.game.goldPosition">Gold Position</span></dt>
-                <dd>
-                    <span>{{game.goldPosition}}</span>
-                </dd>
-                <dt><span jhiTranslate="wumpusJhApp.game.wumpus">Wumpus</span></dt>
-                <dd>
-                    <div *ngIf="game.wumpusId">
-                        <a [routerLink]="['/wumpus', game.wumpusId, 'view']">{{game.wumpusId}}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="wumpusJhApp.game.hunter">Hunter</span></dt>
-                <dd>
-                    <div *ngIf="game.hunterId">
-                        <a [routerLink]="['/hunter', game.hunterId, 'view']">{{game.hunterId}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

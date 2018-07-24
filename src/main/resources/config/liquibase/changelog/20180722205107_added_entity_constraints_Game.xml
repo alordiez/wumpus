@@ -19,6 +19,12 @@
                                  constraintName="fk_game_hunter_id"
                                  referencedColumnNames="id"
                                  referencedTableName="hunter"/>
+                                 
+        <addForeignKeyConstraint baseColumnNames="game_id"
+                                 baseTableName="hunter_movements"
+                                 constraintName="fk_hunter_movements_game_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="game"/>
 
     </changeSet>
 </databaseChangeLog>
