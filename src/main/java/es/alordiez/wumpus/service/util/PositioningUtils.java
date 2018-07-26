@@ -82,13 +82,13 @@ public final class PositioningUtils {
 		if (north >= 0) {
 			neighbors[0] = new Position2D(position.x, north);
 		}
-		if (south < height) {
+		if (south < height && south >= 0) {
 			neighbors[2] = new Position2D(position.x, south);
 		}
-		if (east < width) {
+		if (east < width && east >= 0) {
 			neighbors[1] = new Position2D(east, position.y);
 		}
-		if (west < width) {
+		if (west < width && west >= 0) {
 			neighbors[3] = new Position2D(west, position.y);
 		}
 		

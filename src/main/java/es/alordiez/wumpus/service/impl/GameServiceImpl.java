@@ -152,7 +152,7 @@ public class GameServiceImpl implements GameService {
 		if (!game.isPresent()) {
 			throw new HTTPException(HttpStatus.NOT_FOUND.value());
 		} 
-
+		restart = restart == null ? Boolean.FALSE : restart;
 		selectedGame = game.get();
 		if (restart) {
 			selectedGame = initilizeGame(selectedGame);
@@ -162,7 +162,7 @@ public class GameServiceImpl implements GameService {
 		GameDTO gameDto = Mappers.getMapper(GameMapper.class).toDto(selectedGame);
 		gameDto.setBoard(initializeBoard(selectedGame));
 		
-		return Mappers.getMapper(GameMapper.class).toDto(selectedGame);
+		return gameDto;
 	}
 
 	/**
@@ -187,6 +187,9 @@ public class GameServiceImpl implements GameService {
 				if (element != null && element.equals(Element.GOLD)) {
 					field.addPerception(Perception.GLITTER);
 				}
+				if (element != null && element.equals(Element.HUNTER)) {
+					field.setVisited(true);
+				}
 				row.put(y, field);
 			}
 			board.put(x, row);
@@ -210,13 +213,21 @@ public class GameServiceImpl implements GameService {
 				FieldDTO field = row.get(y);
 				Position2D[] neighbors = PositioningUtils.getNeighbors(new Position2D(x, y), width, height);
 				Position2D position = neighbors[0];
-				field.addPerception(getNeighborPerceptions(board.get(position.x).get(position.y)));
+				if(position != null) {
+					field.addPerception(getNeighborPerceptions(board.get(position.x).get(position.y)));
+				}
 				position = neighbors[1];
-				field.addPerception(getNeighborPerceptions(board.get(position.x).get(position.y)));
+				if(position != null) {
+					field.addPerception(getNeighborPerceptions(board.get(position.x).get(position.y)));
+				}
 				position = neighbors[2];
-				field.addPerception(getNeighborPerceptions(board.get(position.x).get(position.y)));
+				if(position != null) {
+					field.addPerception(getNeighborPerceptions(board.get(position.x).get(position.y)));
+				}
 				position = neighbors[3];
-				field.addPerception(getNeighborPerceptions(board.get(position.x).get(position.y)));
+				if(position != null) {
+					field.addPerception(getNeighborPerceptions(board.get(position.x).get(position.y)));
+				}
 			}
 		}
 		return board;
