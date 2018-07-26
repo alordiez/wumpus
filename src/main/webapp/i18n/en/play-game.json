@@ -4,8 +4,22 @@
         "play-game" : {
             "home": {
                 "title": "Welcome to Wumpus game",
-                "start-playing": "Start playing!"
+                "select-game": "Select a game",
+                "start-playing": "Start playing!",
+                "end-game": "End game"
+            },
+            "directions": {
+                "title": "Move hunter",
+                "up": "up",
+                "down": "down",
+                "left": "left",
+                "right": "right"
+            },
+            "arrows": {
+              "title": "Arrows",
+              "available": "Available: {{ param }}"
             }
+
         }
     }
 }

@@ -4,7 +4,20 @@
         "play-game" : {
             "home": {
                 "title": "Bienvenido al juego Wumpus",
-                "start-playing": "Empieza a jugar!"
+                "select-game": "Seleccione un juego",
+                "start-playing": "Empieza a jugar!",
+                "end-game": "Terminar juego"
+            },
+            "directions": {
+                "title": "Movimientos del cazador",
+                "up": "Arriba",
+                "down": "Abajo",
+                "left": "Izquierda",
+                "right": "Derecha"
+            },
+            "arrows": {
+              "title": "Flechas",
+              "available": "Disponibles: {{ param }}"
             }
         }
     }

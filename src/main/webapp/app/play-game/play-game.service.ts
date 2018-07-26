@@ -11,7 +11,7 @@ type EntityArrayResponseType = HttpResponse<IGame[]>;
 
 @Injectable({ providedIn: 'root' })
 export class PlayGameService {
-    private resourceUrl = SERVER_API_URL + 'api/game';
+    private resourceUrl = SERVER_API_URL + 'api/games';
 
     constructor(private http: HttpClient) {}
 
@@ -22,5 +22,9 @@ export class PlayGameService {
     query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http.get<IGame[]>(this.resourceUrl, { params: options, observe: 'response' });
+    }
+
+    startGame(id: number): Observable<EntityResponseType> {
+        return this.http.get<IGame>(`${this.resourceUrl}/${id}/start-game`, { observe: 'response' });
     }
 }

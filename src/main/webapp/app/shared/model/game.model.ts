@@ -1,4 +1,4 @@
-import { IGamePits } from 'app/shared/model//game-pits.model';
+import { IField } from 'app/shared/model//field.model';
 
 export interface IGame {
     id?: number;
@@ -6,10 +6,8 @@ export interface IGame {
     height?: number;
     pitNumber?: number;
     arrows?: number;
-    goldPosition?: number;
-    gamePits?: IGamePits[];
-    wumpusId?: number;
-    hunterId?: number;
+    movements?: number[];
+    board?: { [key: number]: { [key: number]: IField; }; };
 }
 
 export class Game implements IGame {
@@ -19,9 +17,7 @@ export class Game implements IGame {
         public height?: number,
         public pitNumber?: number,
         public arrows?: number,
-        public goldPosition?: number,
-        public gamePits?: IGamePits[],
-        public wumpusId?: number,
-        public hunterId?: number
+        public movements?: number[],
+        public board?: IField[][],
     ) {}
 }
