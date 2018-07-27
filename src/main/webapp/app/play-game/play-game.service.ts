@@ -24,7 +24,20 @@ export class PlayGameService {
         return this.http.get<IGame[]>(this.resourceUrl, { params: options, observe: 'response' });
     }
 
-    startGame(id: number): Observable<EntityResponseType> {
-        return this.http.get<IGame>(`${this.resourceUrl}/${id}/start-game`, { observe: 'response' });
+    startGame(id: number, restart: boolean): Observable<EntityResponseType> {
+        const args = restart ? '?restart=true' : '';
+        return this.http.get<IGame>(`${this.resourceUrl}/${id}/start-game${args}`, { observe: 'response' });
+    }
+
+    endGame(id: number): Observable<EntityResponseType> {
+        return this.http.get<IGame>(`${this.resourceUrl}/${id}/end-game`, { observe: 'response' });
+    }
+
+    move(id: number, direction: string): Observable<EntityResponseType> {
+        return this.http.patch<IGame>(`${this.resourceUrl}/${id}/move`, direction, { observe: 'response' });
+    }
+
+    shoot(id: number, direction: string): Observable<EntityResponseType> {
+        return this.http.patch<IGame>(`${this.resourceUrl}/${id}/shoot`, direction, { observe: 'response' });
     }
 }

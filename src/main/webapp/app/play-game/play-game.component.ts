@@ -6,6 +6,7 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { IGame } from '../shared/model/game.model';
 import { IField } from '../shared/model/field.model';
 import { IEnum } from '../shared/model/enum.model';
+import { Direction } from '../shared/model/directions.model';
 import { Principal } from 'app/core';
 import { PlayGameService } from './play-game.service';
 
@@ -20,6 +21,7 @@ export class PlayGameComponent implements OnInit, OnDestroy {
     currentAccount: any;
     eventSubscriber: Subscription;
     gameStarted: boolean;
+    showSolution: boolean;
 
     constructor(
         private playGameService: PlayGameService,
@@ -39,11 +41,12 @@ export class PlayGameComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.gameStarted = false;
+        this.showSolution = false;
         this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
         });
-        this.registerChangeInGames();
+        this.registerRestartGame();
     }
 
     ngOnDestroy() {
@@ -88,8 +91,8 @@ export class PlayGameComponent implements OnInit, OnDestroy {
       return '';
     }
 
-    registerChangeInGames() {
-        this.eventSubscriber = this.eventManager.subscribe('gamesListModification', response => this.loadAll());
+    registerRestartGame() {
+        this.eventSubscriber = this.eventManager.subscribe('restartGame', response => this.restart());
     }
 
     getDescription(game: IGame) {
@@ -97,7 +100,11 @@ export class PlayGameComponent implements OnInit, OnDestroy {
     }
 
     startGame() {
-      this.playGameService.startGame(this.game.id).subscribe(
+      this.doStartGame(false);
+    }
+
+    doStartGame(restart: boolean) {
+      this.playGameService.startGame(this.game.id, restart).subscribe(
           (res: HttpResponse<IGame>) => {
               this.gameStarted = true;
               this.game = res.body;
@@ -107,7 +114,13 @@ export class PlayGameComponent implements OnInit, OnDestroy {
     }
 
     endGame() {
-      this.gameStarted = false;
+      this.playGameService.endGame(this.game.id).subscribe(
+          (res: HttpResponse<IGame>) => {
+              this.gameStarted = false;
+              this.game = null;
+          },
+          (res: HttpErrorResponse) => this.onError(res.message)
+      );
     }
 
     private onError(errorMessage: string) {
@@ -115,34 +128,74 @@ export class PlayGameComponent implements OnInit, OnDestroy {
     }
 
     moveUp() {
-
+      this.move(Direction.NORTH);
     }
 
     moveDown() {
-
+      this.move(Direction.SOUTH);
     }
 
     moveLeft() {
-
+      this.move(Direction.WEST);
     }
 
     moveRight() {
-
+      this.move(Direction.EAST);
     }
 
     shootUp() {
-
+      this.shoot(Direction.NORTH);
     }
 
     shootDown() {
-
+      this.shoot(Direction.SOUTH);
     }
 
     shootLeft() {
-
+      this.shoot(Direction.WEST);
     }
 
     shootRight() {
+      this.shoot(Direction.EAST);
+    }
 
+    shoot(direction: string) {
+      this.playGameService.shoot(this.game.id, direction).subscribe(
+          (res: HttpResponse<IGame>) => {
+              this.game = res.body;
+              this.evaluateShoot();
+          },
+          (res: HttpErrorResponse) => this.onError(res.message)
+      );
+    }
+
+    move(direction: string) {
+      this.playGameService.move(this.game.id, direction).subscribe(
+          (res: HttpResponse<IGame>) => {
+              this.game = res.body;
+              this.evaluateMovement();
+          },
+          (res: HttpErrorResponse) => this.onError(res.message)
+      );
+    }
+
+    evaluateShoot() {
+      if (this.game.wumpusAlive) {
+
+      }
+    }
+
+    evaluateMovement() {
+      if (this.game.gameover) {
+
+      }
+    }
+
+    restart() {
+      this.doStartGame(true);
+    }
+
+    doShowSolution() {
+      this.showSolution = !this.showSolution;
     }
 }

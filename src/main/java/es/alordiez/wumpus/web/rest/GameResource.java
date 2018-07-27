@@ -1,22 +1,34 @@
 package es.alordiez.wumpus.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import es.alordiez.wumpus.service.GameService;
-import es.alordiez.wumpus.web.rest.errors.BadRequestAlertException;
-import es.alordiez.wumpus.web.rest.util.HeaderUtil;
-import es.alordiez.wumpus.service.dto.GameDTO;
-import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.codahale.metrics.annotation.Timed;
+
+import es.alordiez.wumpus.service.GameService;
+import es.alordiez.wumpus.service.dto.GameDTO;
+import es.alordiez.wumpus.web.rest.errors.BadRequestAlertException;
+import es.alordiez.wumpus.web.rest.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing Game.
@@ -109,7 +121,7 @@ public class GameResource {
 		Optional<GameDTO> gameDTO = gameService.findOne(id);
 		return ResponseUtil.wrapOrNotFound(gameDTO);
 	}
-	
+
 	/**
 	 * GET /games/:id : get the "id" game.
 	 *
@@ -120,31 +132,65 @@ public class GameResource {
 	 */
 	@GetMapping("/games/{id}/start-game")
 	@Timed
-	public ResponseEntity<GameDTO> startGame(@PathVariable Long id, 
+	public ResponseEntity<GameDTO> startGame(@PathVariable Long id,
 			@RequestParam(value = "restart", required = false) Boolean restart) {
 		log.debug("REST request to start Game : {}", id);
 		GameDTO gameDTO = gameService.startGame(id, restart);
 		return ResponseEntity.ok().body(gameDTO);
 	}
+	
+	/**
+	 * GET /games/:id/end-game : get the "id" game.
+	 *
+	 * @param id
+	 *            the id of the gameDTO to end
+	 * @return the ResponseEntity with status 200 (OK) and with body the gameDTO, or
+	 *         with status 404 (Not Found)
+	 */
+	@GetMapping("/games/{id}/end-game")
+	@Timed
+	public ResponseEntity<Void> endGame(@PathVariable Long id) {
+		log.debug("REST request to end Game : {}", id);
+		gameService.endGame(id);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 
 	/**
-	 * PATCH /games/:id : get the "id" game.
+	 * PATCH /games/:id/move : get the "id" game.
 	 *
 	 * @param id
 	 *            the id of the game to retrieve
-	 * @param position
+	 * @param direction
 	 *            where player should be moved
 	 * @return the ResponseEntity with status 200 (OK) and with body the game, or
 	 *         with status 404 (Not Found)
 	 */
-	// @GetMapping("/games/{id}")
-	// @Timed
-	// public ResponseEntity<Game> movePlayer(@PathVariable Long id, @PathVariable
-	// Integer position) {
-	// log.debug("REST request to move player on game : {}", id);
-	// Optional<Game> game = gameService.movePlayer(id, position);
-	// return ResponseUtil.wrapOrNotFound(game);
-	// }
+	@PatchMapping("/games/{id}/move")
+	@Timed
+	public ResponseEntity<GameDTO> movePlayer(@PathVariable Long id, @RequestBody String direction) {
+		log.debug("REST request to move player on game : {}", id);
+		GameDTO game = gameService.movePlayer(id, direction);
+		return new ResponseEntity<>(game, HttpStatus.OK);
+	}
+
+	/**
+	 * PATCH /games/:id/shoot : get the "id" game.
+	 *
+	 * @param id
+	 *            the id of the game to retrieve
+	 * @param direction
+	 *            where player would shoot
+	 * @return the ResponseEntity with status 200 (OK) and with body the game, or
+	 *         with status 404 (Not Found)
+	 */
+	@PatchMapping("/games/{id}/shoot")
+//	@RequestMapping(name="/games/{id}/move", method = RequestMethod.PATCH)
+	@Timed
+	public ResponseEntity<GameDTO> shootWumpus(@PathVariable Long id, @RequestBody String direction) {
+		log.debug("REST request to shoot wumpus on game : {}", id);
+		GameDTO game = gameService.shootWumpus(id, direction);
+		return new ResponseEntity<GameDTO>(game, HttpStatus.OK);
+	}
 
 	/**
 	 * DELETE /games/:id : delete the "id" game.

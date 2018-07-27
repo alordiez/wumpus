@@ -1,0 +1,19 @@
+<form name="dialogForm" (ngSubmit)="restart(game.id)">
+    <div class="modal-header">
+        <h4 class="modal-title" jhiTranslate="wumpusJhApp.play-game.gameover.title">GAMEOVER</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <p jhiTranslate="wumpusJhApp.play-game.gameover.info">You have meet the wumpus or have fallen in a pit. </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" class="btn btn-danger">
+            <fa-icon [icon]="'times'"></fa-icon>&nbsp;<span jhiTranslate="wumpusJhApp.play-game.gameover.restart">Restart</span>
+        </button>
+    </div>
+</form>

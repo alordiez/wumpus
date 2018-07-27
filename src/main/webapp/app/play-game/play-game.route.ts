@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { Game } from '../shared/model/game.model';
 import { PlayGameService } from './play-game.service';
 import { PlayGameComponent } from './play-game.component';
+import { PlayGamePopupComponent } from './play-game-dialog.component';
 import { IGame } from '../shared/model/game.model';
 
 @Injectable({ providedIn: 'root' })
@@ -32,4 +33,20 @@ export const playGameRoute: Routes = [
         },
         canActivate: [UserRouteAccessService]
     },
+];
+
+export const playGamePopupRoute: Routes = [
+    {
+        path: 'play-game/gameover',
+        component: PlayGamePopupComponent,
+        resolve: {
+            game: PlayGameResolve
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'wumpusJhApp.game.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
+    }
 ];

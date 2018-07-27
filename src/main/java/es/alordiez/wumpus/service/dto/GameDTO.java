@@ -37,6 +37,12 @@ public class GameDTO implements Serializable {
 
 	private HashMap<Integer,HashMap<Integer,FieldDTO>> board;
 
+	private Boolean hunterAlive;
+	private Boolean wumpusAlive;
+	private Boolean gameover;
+	private Boolean goldObtained;
+	private Boolean win;
+	
 	public Long getId() {
 		return id;
 	}
@@ -75,6 +81,47 @@ public class GameDTO implements Serializable {
 
 	public void setArrows(Integer arrows) {
 		this.arrows = arrows;
+	}
+
+	
+	public Boolean getHunterAlive() {
+		return hunterAlive;
+	}
+
+	public void setHunterAlive(Boolean hunterAlive) {
+		this.hunterAlive = hunterAlive;
+	}
+
+	public Boolean getWumpusAlive() {
+		return wumpusAlive;
+	}
+
+	public void setWumpusAlive(Boolean wumpusAlive) {
+		this.wumpusAlive = wumpusAlive;
+	}
+
+	public Boolean getGameover() {
+		return gameover;
+	}
+
+	public void setGameover(Boolean gameover) {
+		this.gameover = gameover;
+	}
+
+	public Boolean getGoldObtained() {
+		return goldObtained;
+	}
+
+	public void setGoldObtained(Boolean goldObtained) {
+		this.goldObtained = goldObtained;
+	}
+
+	public Boolean getWin() {
+		return win;
+	}
+
+	public void setWin(Boolean win) {
+		this.win = win;
 	}
 
 	@Override

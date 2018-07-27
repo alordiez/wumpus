@@ -6,7 +6,9 @@
                 "title": "Bienvenido al juego Wumpus",
                 "select-game": "Seleccione un juego",
                 "start-playing": "Empieza a jugar!",
-                "end-game": "Terminar juego"
+                "end-game": "Terminar juego",
+                "show-solution": "Mostrar solucion",
+                "hide-solution": "Ocultar solucion"
             },
             "directions": {
                 "title": "Movimientos del cazador",
@@ -18,6 +20,17 @@
             "arrows": {
               "title": "Flechas",
               "available": "Disponibles: {{ param }}"
+            },
+            "gameover": {
+              "title": "GAMEOVER",
+              "info": "Te has encontrado con el monstruo o has caido en un pozo!!",
+              "restart": "Reiniciar"
+            },
+            "win": {
+              "title": "Felicidades! Has ganado al Wumpus!",
+              "gold-obtained": "Has encontrado el ORO!.",
+              "info": "Has matado al Wumpus y encontrado el ORO!",
+              "wumpus-killed": "You've killed the wumpus"
             }
         }
     }

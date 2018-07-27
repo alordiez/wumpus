@@ -22,9 +22,10 @@
   <div *ngIf="gameStarted">
     <div *ngIf="game.board" id="board" class="container">
       <div *ngFor="let row of getKeys(game.board)" class="row" style="min-height:50px;">
-        <div *ngFor="let field of getKeys(game.board[row])" class="col-sm" [ngClass]="{'cell':true, 'notVisited': !game.board[row][field].visited }">
-          <div [ngClass]="{'noDisplay': !game.board[row][field].visited }">
+        <div *ngFor="let field of getKeys(game.board[row])" class="col-sm" [ngClass]="{'cell':true, 'notVisited': !game.board[row][field].visited && !showSolution }">
+          <div [ngClass]="{'noDisplay': !game.board[row][field].visited && !showSolution}">
             <div class="row" >
+              {{game.board[row][field].position}}
               <div class="col-sm, elements" style="min-height:20px;">
                 {{printElements(game.board[row][field])}}
               </div>
@@ -37,7 +38,7 @@
           </div>
         </div>
       </div>
-      <div id="controls-area" class="row">
+      <div id="controls-area" *ngIf="!game.gameover" class="row">
 
         <div id="directions" class="col-sm">
           <div class="row">
@@ -71,6 +72,12 @@
           </div>
         </div>
         <div id="spacer" class="col-sm" style="min-width:50px">
+          <span *ngIf="game.goldObtained" jhiTranslate="wumpusJhApp.play-game.win.gold-obtained">
+              You have found the gold!.
+          </span>
+          <span *ngIf="game.wunpusAlive" jhiTranslate="wumpusJhApp.play-game.win.wumpus-killed">
+              You have killed the wumpus!.
+          </span>
         </div>
         <div id="arrows" class="col-sm">
           <div class="row">
@@ -82,24 +89,24 @@
             </div>
           </div>
           <div class="row">
-            <button id="shootup" class="btn btn-info btn-up" style="margin-left:50%;" (click)="shootUp()">
+            <button id="shootup" [disabled]="game.arrows <= 0" class="btn btn-info btn-up" style="margin-left:50%;" (click)="shootUp()">
               <span  jhiTranslate="wumpusJhApp.play-game.directions.up">
                 Up
               </span>
             </button>
           </div>
           <div class="row">
-            <button id="shootleft" class="col-sm btn btn-info float-left" (click)="shootLeft()">
+            <button id="shootleft" [disabled]="game.arrows <= 0" class="col-sm btn btn-info float-left" (click)="shootLeft()">
               <span  jhiTranslate="wumpusJhApp.play-game.directions.left">
                 Left
               </span>
             </button>
-            <button id="shootdown" class="col-sm btn btn-info" (click)="shootDown()">
+            <button id="shootdown" [disabled]="game.arrows <= 0" class="col-sm btn btn-info" (click)="shootDown()">
               <span jhiTranslate="wumpusJhApp.play-game.directions.down">
                 Down
               </span>
             </button>
-            <button id="shootright" class="col-sm btn btn-info float-right" (click)="shootRight()">
+            <button id="shootright" [disabled]="game.arrows <= 0" class="col-sm btn btn-info float-right" (click)="shootRight()">
               <span  jhiTranslate="wumpusJhApp.play-game.directions.right">
                 Right
               </span>
@@ -108,9 +115,39 @@
         </div>
       </div>
     </div>
+    <div id="gameover-area" *ngIf="game.gameover" class="row">
+      <h2 jhiTranslate="wumpusJhApp.play-game.gameover.title">GAMEOVER</h2>
+      <div id="gameover-text" class="col-sm" jhiTranslate="wumpusJhApp.play-game.gameover.info">
+        You have meet the wumpus or have fallen in a pit.
+      </div>
+      <button id="jh-create-entity" class="row btn btn-danger" style="margin-left:50%; margin-top:50px;" (click)="restart()">
+        <span  jhiTranslate="wumpusJhApp.play-game.gameover.restart">
+          Restart
+        </span>
+      </button>
+    </div>
+    <div id="win-area" *ngIf="game.win" class="row">
+      <h2 jhiTranslate="wumpusJhApp.play-game.win.title">YOU WIN!</h2>
+      <div id="gameover-text" class="col-sm" jhiTranslate="wumpusJhApp.play-game.win.info">
+        You have killed wumpus and found the gold.
+      </div>
+      <button id="jh-create-entity" class="row btn btn-danger" style="margin-left:50%; margin-top:50px;" (click)="restart()">
+        <span  jhiTranslate="wumpusJhApp.play-game.gameover.restart">
+          Restart
+        </span>
+      </button>
+    </div>
     <button id="jh-create-entity" class="row btn btn-danger" style="margin-left:50%; margin-top:50px;" (click)="endGame()">
       <span  jhiTranslate="wumpusJhApp.play-game.home.end-game">
         End game
+      </span>
+    </button>
+    <button id="jh-create-entity" class="row btn btn-danger" style="margin-left:50%; margin-top:50px;" (click)="doShowSolution()">
+      <span *ngIf="showSolution" jhiTranslate="wumpusJhApp.play-game.home.hide-solution">
+        Hide Solution
+      </span>
+      <span *ngIf="!showSolution" jhiTranslate="wumpusJhApp.play-game.home.show-solution">
+        Show Solution
       </span>
     </button>
 

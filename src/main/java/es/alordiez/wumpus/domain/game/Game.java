@@ -57,9 +57,17 @@ public class Game implements Serializable {
 	@Min(value = 3)
 	@Column(name = "arrows", nullable = false)
 	private Integer arrows;
+	
+	@NotNull
+	@Min(value = 0)
+	@Column(name = "usedArrows", nullable = false)
+	private Integer usedArrows;
 
 	@Column(name = "gold_position")
 	private Integer goldPosition;
+	
+	@Column(name = "started", nullable=false)
+	private Boolean started;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "game")
 	private Set<GamePits> gamePits = new HashSet<>();
@@ -159,6 +167,19 @@ public class Game implements Serializable {
 	public void setArrows(Integer arrows) {
 		this.arrows = arrows;
 	}
+	
+	public Integer getUsedArrows() {
+		return usedArrows;
+	}
+
+	public Game usedArrows(Integer arrows) {
+		this.usedArrows = arrows;
+		return this;
+	}
+
+	public void setUsedArrows(Integer arrows) {
+		this.usedArrows = arrows;
+	}
 
 	public Integer getGoldPosition() {
 		return goldPosition;
@@ -223,6 +244,7 @@ public class Game implements Serializable {
 	public void setHunter(Hunter hunter) {
 		this.hunter = hunter;
 	}
+	
 	// jhipster-needle-entity-add-getters-setters - JHipster will add getters and
 	// setters here, do not remove
 
@@ -232,6 +254,19 @@ public class Game implements Serializable {
 
 	public void setMovements(List<Integer> movements) {
 		this.movements = movements;
+	}
+	
+	public Boolean isStarted() {
+		return started;
+	}
+
+	public Game started(Boolean started) {
+		this.started = started;
+		return this;
+	}
+
+	public void setStarted(Boolean started) {
+		this.started = started;
 	}
 
 	public boolean isPositionUsed(Integer positionToCheck) {
@@ -289,5 +324,22 @@ public class Game implements Serializable {
 	public String toString() {
 		return "Game{" + "id=" + getId() + ", width=" + getWidth() + ", height=" + getHeight() + ", pitNumber="
 				+ getPitNumber() + ", arrows=" + getArrows() + ", goldPosition=" + getGoldPosition() + "}";
+	}
+
+	public void moveHunter(Integer newPosition) {
+		hunter.setPosition(newPosition);
+		movements.add(newPosition);
+	}
+	public void killHunter() {
+		hunter.setIsAlive(false);
+		started=false;
+	}
+
+	public void killWumpus() {
+		wumpus.setIsAlive(false);
+	}
+
+	public void minusArrows() {
+		usedArrows++;
 	}
 }

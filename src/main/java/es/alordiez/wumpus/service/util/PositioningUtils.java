@@ -1,7 +1,6 @@
 package es.alordiez.wumpus.service.util;
 
-import java.util.ArrayList;
-import java.util.List;
+import es.alordiez.wumpus.domain.game.Direction;
 
 /**
  * Utility class to perform positioning calculations
@@ -11,7 +10,6 @@ import java.util.List;
  */
 public final class PositioningUtils {
 
-	
 	private PositioningUtils() {
 	}
 
@@ -60,10 +58,10 @@ public final class PositioningUtils {
 
 		return neighbors;
 	}
-	
+
 	/**
-	 * Given (x,y) 2D position and width & height of a board, returns 4 2D
-	 * positions of its direct neighbors (null if no neighbor present).
+	 * Given (x,y) 2D position and width & height of a board, returns 4 2D positions
+	 * of its direct neighbors (null if no neighbor present).
 	 * 
 	 * @param x
 	 * @param y
@@ -72,7 +70,7 @@ public final class PositioningUtils {
 	 * @return
 	 */
 	public static Position2D[] getNeighbors(Position2D position, int width, int height) {
-		Position2D[] neighbors = {null, null, null, null};
+		Position2D[] neighbors = { null, null, null, null };
 
 		int north = position.y - 1;
 		int south = position.y + 1;
@@ -91,7 +89,30 @@ public final class PositioningUtils {
 		if (west < width && west >= 0) {
 			neighbors[3] = new Position2D(west, position.y);
 		}
-		
+
 		return neighbors;
+	}
+
+	public static Integer getNewPosition(Integer currentPosition, Direction direction, int width, int height) {
+		int totalFields = width * height - 1;
+		int newPosition = -1;
+		switch (direction) {
+			case EAST:
+				newPosition = currentPosition + 1;
+				break;
+			case WEST:
+				newPosition = currentPosition - 1;
+				break;
+			case NORTH:
+				newPosition = currentPosition - width;
+				break;
+			case SOUTH:
+				newPosition = currentPosition + width;
+				break;
+		}
+		if(newPosition > totalFields || newPosition < 0) {
+			return -1;
+		}
+		return newPosition;
 	}
 }

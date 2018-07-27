@@ -6,7 +6,9 @@
                 "title": "Welcome to Wumpus game",
                 "select-game": "Select a game",
                 "start-playing": "Start playing!",
-                "end-game": "End game"
+                "end-game": "End game",
+                "show-solution": "Show solution",
+                "hide-solution": "Hide solution"
             },
             "directions": {
                 "title": "Move hunter",
@@ -18,8 +20,18 @@
             "arrows": {
               "title": "Arrows",
               "available": "Available: {{ param }}"
+            },
+            "gameover": {
+              "title": "GAMEOVER",
+              "info": "You have meet the wumpus or have fallen in a pit.",
+              "restart": "Restart"
+            },
+            "win": {
+              "title": "Congratulations! You WIN!",
+              "gold-obtained": "You have found the gold!.",
+              "info": "You have killed wumpus and found the gold.",
+              "wumpus-killed": "You've killed the wumpus"
             }
-
         }
     }
 }

@@ -8,6 +8,11 @@ export interface IGame {
     arrows?: number;
     movements?: number[];
     board?: { [key: number]: { [key: number]: IField; }; };
+    hunterAlive?: boolean;
+    wumpusAlive?: boolean;
+    gameover?: boolean;
+    goldObtained?: boolean;
+    win?: boolean;
 }
 
 export class Game implements IGame {
@@ -19,5 +24,10 @@ export class Game implements IGame {
         public arrows?: number,
         public movements?: number[],
         public board?: IField[][],
+        public hunterAlive?: boolean,
+        public wumpusAlive?: boolean,
+        public gameover?: boolean,
+        public goldObtained?: boolean,
+        public win?: boolean,
     ) {}
 }

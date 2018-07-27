@@ -48,4 +48,26 @@ public interface GameService {
      * @return
      */
     GameDTO startGame(Long id, Boolean restart);
+
+    /**
+     * Moves the hunter of started game to the field marked by direction
+     * @param id
+     * @param direction
+     * @return
+     */
+	GameDTO movePlayer(Long id, String direction);
+
+	/**
+	 * On a started game, shoots in the direction indicated and kills or not the wumpus
+	 * @param id
+	 * @param direction
+	 * @return
+	 */
+	GameDTO shootWumpus(Long id, String direction);
+	
+	/**
+	 * Finalizes started game
+	 * @param id
+	 */
+	void endGame(Long id);
 }
